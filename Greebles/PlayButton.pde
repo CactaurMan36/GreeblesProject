@@ -1,15 +1,17 @@
+import ddf.minim.*;
 class PlayButton
 {
   PVector position;
   float radius = 25;
   PImage playBtn;
-  Boolean playSong;
+  Boolean songPlaying = false;
+  AudioPlayer plr;
   
-  PlayButton(float posX, float posY)
+  PlayButton(float posX, float posY, AudioPlayer p)
   {
     position = new PVector(posX,posY);
     playBtn = loadImage("PlayBTN.png");
-    
+    plr = p;
   }
   
   void display()
@@ -21,7 +23,11 @@ class PlayButton
   {
     if(dist(position.x, position.y, mouseX, mouseY) <= radius)
     { 
-      
+      //if(songPlaying != true)
+      //{ 
+        plr.play();
+        songPlaying = true;
+      //}
     }
   }
   
