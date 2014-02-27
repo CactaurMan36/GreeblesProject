@@ -9,9 +9,14 @@ class Switch
   Boolean clicked;
   AudioPlayer plr;
   
+  PVector upPos;
+  PVector downPos;
+  
   Switch(float posX, float posY, AudioPlayer playa)
   {
     position = new PVector(posX, posY);
+    upPos = new PVector(posX, posY);
+    downPos = new PVector(posX, posY + 28);
     switchImg = loadImage("SwitchUp.png");
     clicked = false;
     plr = playa;
@@ -30,6 +35,7 @@ class Switch
         {
           clicked = true;
           switchImg = loadImage("SwitchDown.png");
+          position.set(downPos);
           plr.play();
           plr.rewind();
         }
@@ -37,6 +43,7 @@ class Switch
         {
           clicked = false;
           switchImg = loadImage("SwitchUp.png");
+          position.set(upPos);
           plr.play();
           plr.rewind();
         }

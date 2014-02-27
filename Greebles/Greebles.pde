@@ -3,7 +3,7 @@ import ddf.minim.*;
 EjectButton eButton;
 PShape viewPort;
 BloomPProcess bloom = new BloomPProcess();
-Boolean songPlaying;
+boolean songPlaying = false;
 
 PImage backgroundUI;
 PFont uiFont;
@@ -115,15 +115,15 @@ void draw()
   text("THREAT", 270, 540);
   text("LEVEL  -", 282, 570);
   text("LOW", 425, 565);
-  
+  /*
   for(MusicBar m: mBars)
     {
       m.move();
       m.display();
-    }
+    }*/
   
-  /* make bars move only when song is playing
-  if()
+  // make bars move only when song is playing
+  if(player.isPlaying() || player2.isPlaying())
   {
     for(MusicBar m: mBars)
     {
@@ -133,12 +133,12 @@ void draw()
   }
   else
   {
-     for(MusicBar m: mBars)
+    for(MusicBar m: mBars)
     {
-      m.display();
+      //m.display();
     }
   }
-  */
+  
   
   
   stroke(25, 203, 250);
@@ -178,9 +178,9 @@ void nextMousePress() //mousePressed event for next button
     }
   }
 
-void mousePressed() //helper tool to get the current mouse coordinates
+void mousePressed() 
 {
-  println(mouseX + ", " + mouseY);
+  println(mouseX + ", " + mouseY); //helper tool to get the current mouse coordinates
   eButton.mousePress();
   playButton.mousePress();
   stopButton.mousePress();

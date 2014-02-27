@@ -4,7 +4,7 @@ class PlayButton
   PVector position;
   float radius = 25;
   PImage playBtn;
-  Boolean sngPlaying;
+  //Boolean sngPlaying;
   AudioPlayer plr;
   
   PlayButton(float posX, float posY, AudioPlayer p)
@@ -24,7 +24,6 @@ class PlayButton
     if(dist(position.x, position.y, mouseX, mouseY) <= radius)
     { 
         plr.play();
-        
     }
   }
   
