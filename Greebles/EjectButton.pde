@@ -4,13 +4,13 @@ class EjectButton
   PFont font;
   float radius;
   
-  final float fontSize = 25;
+  final float fontSize = 10;
   
   EjectButton(float x, float y, float r)
   {
     position = new PVector(x, y);
     radius = r;
-    font = createFont("BrowalliaUPC", fontSize);
+    font = createFont("Gimme Danger.ttf", fontSize);
   }
   
   void display()

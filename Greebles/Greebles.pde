@@ -6,9 +6,13 @@ BloomPProcess bloom = new BloomPProcess();
 Boolean songPlaying;
 
 PImage backgroundUI;
+PFont uiFont;
 
 PlayButton playButton;
 StopButton stopButton;
+
+MusicBar[] mBars;
+int numBars = 5;
 
 //audio content
 //AudioPlayer player;
@@ -49,12 +53,10 @@ void setup()
   saveFrame("cockpit.jpg");*/
   
   backgroundUI = loadImage( "background.jpg" );
-   
+  uiFont = createFont("Gimme Danger.ttf", 18);
+  //Gimme Danger font by Imagex Fonts
   
   eButton = new EjectButton(720f, 50f, 30f);
-
-
-  saveFrame("cockpit.jpg");
   /*
   viewPort = createShape();
   viewPort.beginShape();
@@ -73,7 +75,11 @@ void setup()
   playButton = new PlayButton(625f, 480f, player);
   stopButton = new StopButton(700f, 480f, player);
   
-  
+  mBars = new MusicBar[5];
+  for(int i = 0; i < numBars; i++)
+  {
+    mBars[i] = new MusicBar(580 + (40 * i), 530);
+  }
 }
 
 void draw()
@@ -92,11 +98,19 @@ void draw()
   playButton.display();
   stopButton.display();
   
+  textFont(uiFont);
+  text("ENEMY DETECTED", 270, 440);
+  
+  for(MusicBar m: mBars)
+  {
+    m.move();
+    m.display();
+  }
+  
   //bloom.ApplyBloom();
   //anything after this wont be bloomed
   
   //window lines
-  
   /*
   stroke(0);
   strokeWeight(2.5);
@@ -110,7 +124,6 @@ void draw()
   line(x4 - 50, y1, x4, y1);
   line(x4 - 50, y1, x4 - 50, 0);
   
-
   stroke(25, 203, 250);
   strokeWeight(4);
   line(x1, 0, x1, y1);
