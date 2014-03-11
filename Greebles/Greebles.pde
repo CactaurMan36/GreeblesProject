@@ -35,6 +35,11 @@ float timer = 0;
 float savedTime = 0;
 float totalTime = 1000;
 
+int mgAmmo = 800;
+int miAmmo = 100;
+int lAmmo = 200;
+int stringID = 0;
+
 AudioPlayer player;
 AudioPlayer player2;
 Minim minim;
@@ -81,7 +86,7 @@ void draw()
   
   image( backgroundUI, 0, 0, 800 , 600 );
   
-   //buttons
+  //buttons-----------------------------------
   eButton.display();
   playButton.display();
   stopButton.display();
@@ -90,7 +95,9 @@ void draw()
   switch2.display();
   switch3.display();
   switch4.display();
+  //------------------------------------------
   
+  //middle console text-----------------------
   textFont(uiFont);
   float passedTime = millis() - savedTime;
   if(passedTime >= totalTime)
@@ -115,14 +122,59 @@ void draw()
   text("THREAT", 270, 540);
   text("LEVEL  -", 282, 570);
   text("LOW", 425, 565);
-  /*
-  for(MusicBar m: mBars)
-    {
-      m.move();
-      m.display();
-    }*/
+  //---------------------------------------------
   
-  // make bars move only when song is playing
+  //left side weapons display--------------------
+  textFont(uiFont, 14); //still need fontsize
+  String machineGun = "MACHINE GUN";
+  String missiles = "ROCKET LAUNCHER";
+  String lasers = "LASER RIFLE";
+  String[] ammoTypes = {machineGun, lasers, missiles}; 
+  for(int i = 0; i < ammoTypes.length; i++)
+  {
+    if(stringID == i)
+    {
+      fill(247, 239, 77, 255);
+      if(i == 0)
+      {
+        text(ammoTypes[i], 5, 150); 
+        text(Integer.toString(mgAmmo), 60, 180);
+      }
+      else if(i == 1)
+      {
+        text(ammoTypes[i], 25, 245);
+        text(Integer.toString(lAmmo), 70, 275);
+      }
+      else
+      {
+        text(ammoTypes[i], 5, 340);
+        text(Integer.toString(miAmmo), 85, 370);
+      }
+    }
+    else
+    {
+      fill(255, 255, 255, 120);
+      if(i == 0)
+      {
+        text(ammoTypes[i], 5, 150); 
+        text(Integer.toString(mgAmmo), 60, 180);
+      }
+      else if(i == 1)
+      {
+        text(ammoTypes[i], 25, 245);
+        text(Integer.toString(lAmmo), 70, 275);
+      }
+      else
+      {
+        text(ammoTypes[i], 5, 340);
+        text(Integer.toString(miAmmo), 85, 370);
+      }
+    }
+  }
+  //---------------------------------------------
+  
+  //music bars-----------------------------------
+  //make bars move only when song is playing-----
   if(player.isPlaying() || player2.isPlaying())
   {
     for(MusicBar m: mBars)
@@ -131,16 +183,9 @@ void draw()
       m.display();
     }
   }
-  else
-  {
-    for(MusicBar m: mBars)
-    {
-      //m.display();
-    }
-  }
+  //---------------------------------------------
   
-  
-  
+  //mouseArc-------------------------------------
   stroke(25, 203, 250);
   //strokeWeight(2);
   noCursor();
@@ -151,6 +196,7 @@ void draw()
   mouseArc(20, 0, 3*PI/2, 20);
   mouseArc(30, 0, 3*PI/2.5, -30);
   timer++;
+  //---------------------------------------------
   
 }
 
@@ -189,6 +235,62 @@ void mousePressed()
   switch3.mousePress();
   switch4.mousePress();
   nextMousePress();
+}
+
+void keyPressed()
+{
+  if(key == CODED)
+  {
+    if(keyCode == UP)
+    {
+      stringID--;
+      if(stringID < 0)
+        stringID = 0;
+    }
+    else if(keyCode == DOWN)
+    {
+      stringID++;
+      if(stringID > 2)
+        stringID = 2;
+    }
+  }
+  else
+  {
+    if(key == ' ')
+    {
+      if(stringID == 0)
+      {
+        if(mgAmmo > 0)
+          mgAmmo--;
+      }
+      else if(stringID == 1)
+      {
+        if(lAmmo > 0)
+          lAmmo--;
+      }
+      else
+      {
+        if(miAmmo > 0)
+          miAmmo--;
+      }
+    }
+    
+    else if(key == 'r')
+    {
+      if(stringID == 0)
+      {
+        mgAmmo = 800;
+      }
+      else if(stringID == 1)
+      {
+        lAmmo = 200;
+      }
+      else
+      {
+        miAmmo = 100;
+      }
+    }
+  }
 }
 
 void mouseArc(float size, float start, float end, float timerDiv)
